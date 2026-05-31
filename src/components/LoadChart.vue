@@ -359,6 +359,16 @@ const cpuChartOption = computed(() => ({
   animation: false,
   // 全局颜色配置（确保 Tooltip 圆点颜色与线条一致）
   color: [chartColors.primary, chartColors.secondary],
+  legend: {
+    show: true,
+    bottom: 0,
+    itemWidth: 12,
+    itemHeight: 3,
+    borderRadius: 2,
+    textStyle: { color: chartThemeColors.value.textSecondary, fontSize: 11 },
+    icon: 'roundRect',
+    data: ['CPU', '负载'],
+  },
   tooltip: {
     ...baseTooltipConfig.value,
     formatter: (params: unknown) => {
@@ -389,7 +399,7 @@ const cpuChartOption = computed(() => ({
       return html
     },
   },
-  grid: chartMargin,
+  grid: chartMarginWithLegend,
   xAxis: baseXAxisConfig.value,
   yAxis: [
     {
@@ -405,6 +415,7 @@ const cpuChartOption = computed(() => ({
       name: '负载',
       nameTextStyle: { color: chartThemeColors.value.textSecondary, padding: [0, 0, 0, 40] },
       min: 0,
+      max: nodeInfo.value?.cpu_cores ?? undefined,
       splitLine: { show: false },
     },
   ],
@@ -447,6 +458,16 @@ const cpuChartOption = computed(() => ({
 const memoryChartOption = computed(() => ({
   animation: false,
   color: [chartColors.primary, chartColors.secondary],
+  legend: {
+    show: true,
+    bottom: 0,
+    itemWidth: 12,
+    itemHeight: 3,
+    borderRadius: 2,
+    textStyle: { color: chartThemeColors.value.textSecondary, fontSize: 11 },
+    icon: 'roundRect',
+    data: ['RAM', 'Swap'],
+  },
   tooltip: {
     ...baseTooltipConfig.value,
     formatter: (params: unknown) => {
@@ -484,7 +505,7 @@ const memoryChartOption = computed(() => ({
       return html
     },
   },
-  grid: chartMargin,
+  grid: chartMarginWithLegend,
   xAxis: baseXAxisConfig.value,
   yAxis: {
     ...baseYAxisConfig.value,
